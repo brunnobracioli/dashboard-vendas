@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src", // orienta o typeScript que os arquivos importar vao estar no src
     "target": "es5",
     "lib": [
       "dom",
