@@ -2,6 +2,8 @@ package com.brunnobracioli.vendas.service;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.brunnobracioli.vendas.dto.SaleDTO;
+import com.brunnobracioli.vendas.dto.SaleSuccessDTO;
+import com.brunnobracioli.vendas.dto.SaleSumDTO;
 import com.brunnobracioli.vendas.entities.Sale;
 import com.brunnobracioli.vendas.repositories.SaleRepository;
 import com.brunnobracioli.vendas.repositories.SellerRepository;
@@ -28,6 +32,18 @@ public class SaleService {
 		sellerRepository.findAll(); // cria um cache para o banco de dados ao realizar a consulta fazer apenas uma vez a consulta de vendendores
 		Page<Sale> result = repository.findAll(pageable);
 		return result.map(x -> new SaleDTO(x)); // converte uma coleção original para uma nova coleção de outro tipo
+	}
+	
+	@Transactional(readOnly = true)
+	public List<SaleSumDTO> amountGroupedBySeller(){
+		return repository.amountGroupedBySeller();
+		
+	}
+	
+	@Transactional(readOnly = true)
+	public List<SaleSuccessDTO> successGroupedBySeller(){
+		return repository.successGroupedBySeller();
+		
 	}
 
 }
